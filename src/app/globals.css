@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand palette — warm editorial rose */
+  --color-cream: #fbf6f3;
+  --color-cream-deep: #f4e9e4;
+  --color-ink: #211a19;
+  --color-ink-soft: #6b5d5a;
+  --color-rose: #c16e7c;
+  --color-rose-deep: #9e4e5c;
+  --color-rose-soft: #f3d9dc;
+  --color-gold: #c2a269;
+  --color-mauve: #b98a98;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* soft ambient warmth */
+  background-image:
+    radial-gradient(60rem 40rem at 85% -10%, rgba(193, 110, 124, 0.1), transparent 60%),
+    radial-gradient(50rem 40rem at -10% 20%, rgba(194, 162, 105, 0.08), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Hide scroll-reveal targets before GSAP boots, but only when JS+motion is on.
+   The .js-anim flag is set by the client component so no-JS users still see content. */
+.js-anim [data-reveal] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js-anim [data-reveal] {
+    opacity: 1;
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(6deg);
+  }
+}
+
+.animate-floaty {
+  animation: floaty 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty {
+    animation: none;
+  }
 }
