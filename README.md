@@ -69,3 +69,22 @@ src/
 ## 🔐 Supabase
 Chaves em `.env.local` (nunca commitadas). Toda tabela com **RLS deny-by-default**.
 Schema e policies entram a partir da Fase 2.
+
+---
+
+## ☁️ Deploy (Vercel)
+
+Next.js **não** vira `index.html` estático — a Vercel faz o build (`npm run build`) a cada push.
+O repositório guarda só o código-fonte; nada de `index.html` é necessário no git.
+
+**Passo a passo (uma vez só):**
+1. Acesse <https://vercel.com> → entre com a conta do **GitHub**.
+2. **Add New… → Project** → importe `SHIROSLAYER/Nailflow`.
+3. A Vercel detecta Next.js sozinha. **Deploy**.
+4. (Quando houver Supabase) **Project → Settings → Environment Variables**, adicione:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+5. Pronto: URL tipo `nailflow.vercel.app`. Cada `git push` na `main` redeploya automático.
+
+> A landing atual builda e publica **sem** as variáveis (ainda não há chamada ao Supabase).
+> Elas só passam a ser necessárias a partir da Fase 1/2.
