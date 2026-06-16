@@ -576,9 +576,15 @@ export default function Landing({
             </ul>
           </div>
         </div>
-        <p className="mx-auto mt-12 max-w-6xl text-xs text-ink-soft">
-          © {new Date().getFullYear()} Nailflow · feito com Next.js + Supabase
-        </p>
+        <div className="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-3 text-xs text-ink-soft">
+          <p>© {new Date().getFullYear()} Nailflow · feito com Next.js + Supabase</p>
+          <Link
+            href="/login"
+            className="rounded-full border border-rose-soft px-3 py-1 font-medium text-rose-deep transition-colors hover:bg-rose-soft/50"
+          >
+            Entrar (equipe)
+          </Link>
+        </div>
       </footer>
     </div>
   );
