@@ -234,6 +234,12 @@ export default function Landing({
                 {n.label}
               </a>
             ))}
+            <Link
+              href="/login"
+              className="rounded-full border border-rose/40 px-5 py-2.5 font-semibold text-rose-deep transition-colors hover:bg-rose-soft/50"
+            >
+              Entrar
+            </Link>
             <a
               href="#contato"
               data-magnet
@@ -268,10 +274,17 @@ export default function Landing({
                   {n.label}
                 </a>
               ))}
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 rounded-full border border-rose/40 px-6 py-3 text-center font-semibold text-rose-deep"
+              >
+                Entrar
+              </Link>
               <a
                 href="#contato"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 rounded-full bg-rose px-6 py-3 text-center font-semibold text-cream"
+                className="rounded-full bg-rose px-6 py-3 text-center font-semibold text-cream"
               >
                 Agendar horário
               </a>
