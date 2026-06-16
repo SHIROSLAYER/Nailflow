@@ -5,8 +5,13 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import type { GalleryImage } from "@/lib/types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const DEFAULT_HERO_TITLE = "Suas mãos merecem arte.";
+const DEFAULT_HERO_SUBTITLE =
+  "Alongamento, gel e nail art feitos com cuidado de verdade. Reserve seu horário online em segundos.";
 
 /* ---------------------------------------------------------------- data --- */
 
@@ -59,9 +64,22 @@ function SplitWords({ text }: { text: string }) {
 
 /* ---------------------------------------------------------------- view --- */
 
-export default function Landing() {
+export default function Landing({
+  heroTitle = DEFAULT_HERO_TITLE,
+  heroSubtitle = DEFAULT_HERO_SUBTITLE,
+  gallery = [],
+}: {
+  heroTitle?: string;
+  heroSubtitle?: string;
+  gallery?: GalleryImage[];
+}) {
   const root = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const titleWords = (heroTitle || DEFAULT_HERO_TITLE).trim().split(/\s+/);
+  const splitAt = Math.max(1, titleWords.length - 2);
+  const titleHead = titleWords.slice(0, splitAt).join(" ");
+  const titleTail = titleWords.slice(splitAt).join(" ");
 
   useGSAP(
     () => {
@@ -205,7 +223,7 @@ export default function Landing() {
     <div ref={root} className="js-anim overflow-x-hidden">
       {/* ----------------------------------------------------------- NAV --- */}
       <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 pb-4 safe-top safe-x">
           <Link href="#top" className="font-display text-2xl tracking-tight text-rose-deep">
             Nailflow
           </Link>
@@ -276,14 +294,14 @@ export default function Landing() {
               Estúdio de unhas
             </p>
             <h1 className="font-display text-5xl leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-              <SplitWords text="Suas mãos" />
+              <SplitWords text={titleHead} />
               <br />
               <span className="text-rose-deep italic">
-                <SplitWords text="merecem arte." />
+                <SplitWords text={titleTail} />
               </span>
             </h1>
             <p data-hero-fade className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-              Alongamento, gel e nail art feitos com cuidado de verdade. Reserve seu horário online em segundos.
+              {heroSubtitle}
             </p>
             <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-4">
               <a
@@ -372,22 +390,47 @@ export default function Landing() {
             </Link>
           </div>
 
-          <div data-stagger className="grid auto-rows-[180px] grid-cols-2 gap-4 md:grid-cols-3">
-            {GALLERY.map((g) => (
-              <div
-                key={g.label}
-                className={`group relative overflow-hidden rounded-3xl ${g.span}`}
-              >
+          {gallery.length > 0 ? (
+            <div data-stagger className="grid auto-rows-[180px] grid-cols-2 gap-4 md:grid-cols-3">
+              {gallery.map((img, i) => (
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${g.tone} transition-transform duration-500 group-hover:scale-110`}
-                />
-                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5">
-                  <span className="font-display text-lg text-ink">{g.label}</span>
-                  <span className="text-rose-deep opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                  key={img.id}
+                  className={`group relative overflow-hidden rounded-3xl ${
+                    i % 4 === 0 ? "row-span-2" : ""
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img.public_url}
+                    alt={img.title || "Trabalho"}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {img.title && (
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-4">
+                      <span className="font-display text-lg text-white">{img.title}</span>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div data-stagger className="grid auto-rows-[180px] grid-cols-2 gap-4 md:grid-cols-3">
+              {GALLERY.map((g) => (
+                <div
+                  key={g.label}
+                  className={`group relative overflow-hidden rounded-3xl ${g.span}`}
+                >
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${g.tone} transition-transform duration-500 group-hover:scale-110`}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5">
+                    <span className="font-display text-lg text-ink">{g.label}</span>
+                    <span className="text-rose-deep opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

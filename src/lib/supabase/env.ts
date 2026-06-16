@@ -1,0 +1,7 @@
+/** True quando as chaves do Supabase estão configuradas (.env.local / Vercel). */
+export function hasSupabaseEnv(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+}

@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%; /* iOS não dá zoom de texto inesperado */
 }
 
 body {
@@ -26,6 +27,20 @@ body {
     radial-gradient(60rem 40rem at 85% -10%, rgba(193, 110, 124, 0.1), transparent 60%),
     radial-gradient(50rem 40rem at -10% 20%, rgba(194, 162, 105, 0.08), transparent 55%);
   background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Safe areas (notch / home indicator do iPhone) */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 0.75rem);
+}
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+}
+.safe-x {
+  padding-left: max(env(safe-area-inset-left), 0px);
+  padding-right: max(env(safe-area-inset-right), 0px);
 }
 
 /* Hide scroll-reveal targets before GSAP boots, but only when JS+motion is on.
