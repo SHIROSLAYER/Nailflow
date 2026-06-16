@@ -1,8 +1,40 @@
+<div align="center">
+
 # 💅 Nailflow
 
-Plataforma completa para estúdio de unhas: **site público + galeria/portfólio + agendamento online + painel de gestão**.
+**Plataforma do estúdio de unhas** — site, galeria, agendamento e painel de gestão num só lugar.
 
-Stack: **Next.js (App Router) · TypeScript · Tailwind CSS · Supabase**.
+[![Ver site](https://img.shields.io/badge/🌐_Ver_site-nailflow.vercel.app-c16e7c?style=for-the-badge)](https://nailflow-ruby.vercel.app)
+
+![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-instalável-5A0FC8?style=flat-square&logo=pwa)
+
+</div>
+
+---
+
+## ✨ O que é
+
+O **Nailflow** é o site e o sistema do estúdio de unhas. As clientes conhecem o trabalho e
+agendam online; a profissional gerencia tudo por um painel simples — pelo computador ou pelo celular.
+
+## O que ele faz
+
+**Para as clientes**
+- 🏠 Site bonito com serviços e preços
+- 🖼️ Galeria de trabalhos
+- 📅 Agendamento de horário online
+
+**Para o estúdio (área logada)**
+- 🔐 Login com senha
+- 🗓️ Agenda em calendário (visão por mês e por dia)
+- 👤 Ver as clientes do dia e o serviço marcado
+- 💬 Lembrete de horário com 1 toque (WhatsApp)
+- ✏️ Editar textos e fotos do site sem mexer em código
+- 📲 Instalável como app no celular (PWA)
 
 ---
 
@@ -14,77 +46,12 @@ cp .env.local.example .env.local   # preencha as chaves do Supabase
 npm run dev                        # http://localhost:3000
 ```
 
-> Requer Node 18+ (testado com Node 24).
+## 🛠️ Tecnologias
 
----
+Next.js (App Router) · TypeScript · Tailwind CSS · Supabase · GSAP · Vercel
 
-## 🧱 Arquitetura
+<div align="center">
 
-| Área | Rota | Quem usa | Status |
-|------|------|----------|--------|
-| **Site público** | `/` | Visitantes | 🟡 esqueleto |
-| **Galeria / Portfólio** | `/galeria` | Visitantes | 🟡 stub |
-| **Agendamento online** | `/agendar` | Clientes | 🟡 stub |
-| **Painel de gestão** | `/painel` | Dona / profissionais | 🟡 stub (protegido) |
+Feito com 💗 para o estúdio.
 
-```
-src/
-├── app/                 # rotas (App Router)
-│   ├── page.tsx         # landing pública
-│   ├── galeria/
-│   ├── agendar/
-│   └── painel/          # área interna (futuro: auth + RLS)
-└── lib/
-    └── supabase/        # clients browser + server (@supabase/ssr)
-```
-
----
-
-## 🗺️ Roadmap (MVP em fases)
-
-**Fase 0 — Fundação** ✅ _(atual)_
-- Scaffold Next.js + Tailwind + TS
-- Clientes Supabase (browser/server)
-- Estrutura de rotas das 4 áreas
-
-**Fase 1 — Site público + Galeria**
-- Landing real (hero, serviços, preços, depoimentos, contato/WhatsApp)
-- Galeria filtrável de designs (gel, fibra, francesinha…) com imagens no Supabase Storage
-
-**Fase 2 — Agendamento**
-- Tabelas `services`, `availability`, `appointments` (Supabase)
-- Fluxo: cliente escolhe serviço → data/hora livre → confirma → e-mail/WhatsApp
-- RLS: cliente vê só os próprios agendamentos
-
-**Fase 3 — Painel de gestão**
-- Auth (Supabase) + papéis (dona/profissional)
-- Agenda do dia, CRUD de clientes/serviços, status de agendamentos
-- Financeiro: faturamento, comissões
-
-**Fase 4 — Polimento**
-- Notificações, lembretes, responsivo/mobile, deploy (Vercel)
-
----
-
-## 🔐 Supabase
-Chaves em `.env.local` (nunca commitadas). Toda tabela com **RLS deny-by-default**.
-Schema e policies entram a partir da Fase 2.
-
----
-
-## ☁️ Deploy (Vercel)
-
-Next.js **não** vira `index.html` estático — a Vercel faz o build (`npm run build`) a cada push.
-O repositório guarda só o código-fonte; nada de `index.html` é necessário no git.
-
-**Passo a passo (uma vez só):**
-1. Acesse <https://vercel.com> → entre com a conta do **GitHub**.
-2. **Add New… → Project** → importe `SHIROSLAYER/Nailflow`.
-3. A Vercel detecta Next.js sozinha. **Deploy**.
-4. (Quando houver Supabase) **Project → Settings → Environment Variables**, adicione:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-5. Pronto: URL tipo `nailflow.vercel.app`. Cada `git push` na `main` redeploya automático.
-
-> A landing atual builda e publica **sem** as variáveis (ainda não há chamada ao Supabase).
-> Elas só passam a ser necessárias a partir da Fase 1/2.
+</div>
