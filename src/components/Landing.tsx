@@ -6,8 +6,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import type { GalleryImage } from "@/lib/types";
+import dynamic from "next/dynamic";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+// Esmalte 3D — só no navegador (three.js precisa de window)
+const HeroPolish3D = dynamic(() => import("./HeroPolish3D"), { ssr: false });
 
 const DEFAULT_HERO_TITLE = "Suas mãos merecem arte.";
 const DEFAULT_HERO_SUBTITLE =
@@ -339,13 +343,14 @@ export default function Landing({
               data-hero-visual
               className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] bg-gradient-to-br from-rose-soft via-cream-deep to-mauve/40 shadow-2xl shadow-rose/20"
             >
-              <div className="absolute inset-0 flex items-end p-7">
+              <div className="animate-floaty absolute right-6 top-6 h-16 w-16 rounded-full bg-gold/40 blur-xl" />
+              <HeroPolish3D />
+              <div className="pointer-events-none absolute inset-0 flex items-end p-7">
                 <div className="rounded-2xl bg-cream/70 px-5 py-4 backdrop-blur">
                   <p className="font-display text-2xl text-ink">Marcela Carvalho</p>
                   <p className="text-sm text-ink-soft">Nail Designer</p>
                 </div>
               </div>
-              <div className="animate-floaty absolute right-6 top-6 h-16 w-16 rounded-full bg-gold/40 blur-xl" />
             </div>
           </div>
         </div>
